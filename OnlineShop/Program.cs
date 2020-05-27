@@ -25,6 +25,8 @@ namespace OnlineShop
                 {
                     var context = services.GetRequiredService<DataContext>();
                     context.Database.Migrate();
+                    SampleData.InitializeCategory(context);
+                    SampleData.InitializeProduct(context);
                 }
                 catch (Exception ex)
                 {
