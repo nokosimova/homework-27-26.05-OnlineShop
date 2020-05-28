@@ -35,8 +35,8 @@ namespace OnlineShop.Controllers
         [HttpGet]
         public IActionResult Change(int? Id)
         {
-            if (Id == null) RedirectToAction("Index");
-            if (data.Products.FirstOrDefault(i => i.ProductId == Id) == null) RedirectToAction("Index");
+            if (Id == null || data.Products.FirstOrDefault(i => i.ProductId == Id) == null)
+                return RedirectToAction("Error", new { error = "No product with such Id"});  
             Product product = data.Products.FirstOrDefault(i => i.ProductId == Id);
             ProductCategoryModel model = new ProductCategoryModel
             {
@@ -49,7 +49,8 @@ namespace OnlineShop.Controllers
         [HttpPost]
         public IActionResult Change(Product product)
         {
-            if (data.Products.FirstOrDefault(i => i.ProductId == product.ProductId) == null) RedirectToAction("Index");
+            if (data.Products.FirstOrDefault(i => i.ProductId == product.ProductId) == null)
+                return RedirectToAction("Error", new { error = "No product to change" });
             data.Products.First(i => i.ProductId == product.ProductId).ProductName = product.ProductName;
             data.Products.First(i => i.ProductId == product.ProductId).CategoryId = product.CategoryId;
             data.Products.First(i => i.ProductId == product.ProductId).Price = product.Price;
@@ -59,8 +60,8 @@ namespace OnlineShop.Controllers
         [HttpGet]
         public IActionResult Delete(int? Id)
         {
-            if (Id == null) RedirectToAction("Index");
-            if (data.Products.FirstOrDefault(i => i.ProductId == Id) == null) return RedirectToAction("Error", new { error = "No product with such Id"});
+            if (Id == null || data.Products.FirstOrDefault(i => i.ProductId == Id) == null)
+                return RedirectToAction("Error", new { error = "No product with such Id"});
             Product product = data.Products.FirstOrDefault(i => i.ProductId == Id);
             data.Products.Remove(product);
             data.SaveChanges();
@@ -88,59 +89,5 @@ namespace OnlineShop.Controllers
             return View(model);
                   
         }
-        // GET: Product/Details/5
-        [HttpPost]
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Product/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Product/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Product/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Product/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Product/Delete/5
      }
 }
