@@ -26,22 +26,25 @@
             </td>
             <td style="background-color:#fff;height:200px;width:400px;text-align:top;">
                 <div>
-                    <table>
-                        <tr>
-                            <th>id:</th>
-                            <th><input type="text" name="id" /></th>
-                            <th><input type="submit" value="Изменить" /></th>
-                            <th><input type="submit" value="Удалить" /></th>
-                        </tr>
-                    </table> <p> </p>                   
-                    <table border="0">
-                    <tr><th> id </th><th> Название </th><th>Категория</th><th>Цена</th></tr>
-                         @foreach (var item in Model)
-                         {
-                             <tr><td>@item.ProductId</td><td>@item.ProductName</td><td>@item.CategoryId</td><td>@item.Price</td></tr>
-                         }
-        </table{>
-        </div>
+                   
+                        <table>
+                            <tr>
+                                <th>id:</th>
+                                <th><input type="text" name="Id" /></th>
+                                <td><a href="~/Product/Change/Id">Изменить</a></td></th>
+                                <th><input type="submit" value="Удалить" /></th>
+                            </tr>
+                        </table>
+                    
+                        <p> </p>
+                        <table border="0">
+                            <tr><th> id </th><th> Название </th><th>Категория</th><th>Цена</th></tr>
+                            @foreach (var item in Model)
+                            {
+                                <tr><td>@item.ProductId</td><td>@item.ProductName</td><td>@item.CategoryId</td><td>@item.Price</td></tr>
+                            }
+                            </table{>
+                </div>
         </td>
         </tr>
         <tr></tr>

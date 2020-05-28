@@ -34,6 +34,29 @@ namespace OnlineShop.Controllers
             return Redirect("ShowList");
         }
         [HttpGet]
+        public IActionResult Change(int? Id)
+        {
+            if (Id == null) return RedirectToAction("Index");
+            Product product = data.Products.FirstOrDefault(i => i.ProductId == Id);
+            ProductCategoryModel model = new ProductCategoryModel
+            {
+                product = product,
+                Categories = data.Categories,
+                Products = data.Products
+            };
+            return View(model);
+        }
+        [HttpPost]
+        public string Change(Product product)
+        {
+            data.Products.First(i => i.ProductId == product.ProductId).ProductName = product.ProductName;
+            data.Products.First(i => i.ProductId == product.ProductId).CategoryId = product.CategoryId;
+            data.Products.First(i => i.ProductId == product.ProductId).Price = product.Price;
+            data.SaveChanges();
+            return "Данные изменены";
+        }
+
+        [HttpGet]
         public IActionResult ShowList(int CategoryId)
         {
             if (CategoryId != 1)

@@ -1,5 +1,5 @@
 ﻿
-@model List<OnlineShop.Models.Category>
+@model OnlineShop.Models.ProductCategoryModel
 @{
     Layout = null;
 }
@@ -10,7 +10,7 @@
     <table style="width: 800px;border:0px;">
         <tr>
             <td colspan="2" style="background-color:#85C2FF;">
-                <h1 style="color: black;">Добро пожалловать в онлайн-магазин</h1>
+                <h1 style="color: black;">Добро пожаловать!</h1>
             </td>
         </tr>
         <tr style="vertical-align: top;">
@@ -18,39 +18,31 @@
                 <h4 class="nav-item">
                     <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
                 </h4>
-                <h4>Товары:</h4>
-                <ol>
-                    @foreach (var item in Model)
-                    {
-                        <li>
-                            <a href="~/Product/ShowList?CategoryId = @item.CategoryId">@item.CategoryName </a>
-                        </li>
-                    }
-                </ol>
-               
+                <h4>Товары:</h4>               
             </td>
             <td style="background-color:#fff;height:200px;width:400px;text-align:top;">
                 <div>
-                    <h3>Новый товар </h3>
+                    <h3>Измените данные  </h3>
                     <form method="post">
                         <table>
                             <tr>
                                 <td>Название:</td>
-                                <td><input type="text" name="productName" /> </td>
+                                <td><input type="text" name="ProductName" value="@Model.product.ProductName"/> </td>
                             </tr>
                             <tr>
                                 <td>Категория :</td>
-                                <td><select name = "CategoryId">
-                                    @foreach (var item in Model)
-                                    {
-                                        <option value="@item.CategoryId"> @item.CategoryName</option>
-                                    }                                    
-                                </select>
+                                <td>
+                                    <select name="CategoryId">
+                                        @foreach (var item in Model.Categories)
+                                        {
+                                            <option value="@item.CategoryId"> @item.CategoryName</option>
+                                        }
+                                    </select>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Цена:</td>
-                                <td><input type="text" name="price" /></td>
+                                <td><input type="text" name="Price"value="@Model.product.Price"/></td>
                             </tr>
                             <tr><td><input type="submit" value="Отправить" /> </td><td></td></tr>
                         </table>
@@ -60,5 +52,7 @@
         </tr>
         <tr></tr>
     </table>
+
+
 </body>
 </html> 
