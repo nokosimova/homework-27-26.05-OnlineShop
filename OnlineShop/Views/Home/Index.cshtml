@@ -21,9 +21,19 @@
                 <ol>
                     @foreach (var item in Model)
                     {
-                        <li>
-                            <a href="~/Product/ShowList?CategoryId = @item.CategoryId">@item.CategoryName </a>
-                        </li>
+                    <li>
+
+                        @Html.ActionLink(
+linkText: item.CategoryName + item.CategoryId.ToString(),
+actionName: "ShowList",
+controllerName: "Product",
+routeValues: new {
+    Id = item.CategoryId
+},
+htmlAttributes: null
+)
+
+                    </li> 
                     }
                 </ol>
                 <h4 class="nav-item">

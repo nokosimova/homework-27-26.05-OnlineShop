@@ -55,17 +55,18 @@ namespace OnlineShop.Controllers
             data.SaveChanges();
             return "Данные изменены";
         }
-
         [HttpGet]
-        public IActionResult ShowList(int CategoryId)
+        public IActionResult ShowList(int? Id)
         {
-            if (CategoryId != 1)
-                return View(data.Products.ToList());
-            else
-                return View(new List<Product>());
+            if (Id == null) return View(new List<Product>());
+            var list = (Id == 1) ? data.Products.ToList() : data.Products.Where(i => i.CategoryId == Id).ToList();
+            return View(list);
+             
+                  
+        }
 
        //     return View(data.Products.Where(i => i.CategoryId = )ToList());
-        }
+        
         // GET: Product/Details/5
         [HttpPost]
         public ActionResult Details(int id)
