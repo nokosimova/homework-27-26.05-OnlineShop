@@ -23,7 +23,6 @@ namespace OnlineShop.Controllers
         [HttpGet]
         public IActionResult Add()
         {
-            ViewBag.CategoryName = "";
             return View(data.Categories.ToList());            
         }
         [HttpPost]
@@ -57,6 +56,22 @@ namespace OnlineShop.Controllers
             data.SaveChanges();
             return RedirectToAction("ShowList", new{Id = product.CategoryId});
         }
+        [HttpGet]
+        public IActionResult Delete(int? Id)
+        {
+            if (Id == null) RedirectToAction("Index");
+            if (data.Products.FirstOrDefault(i => i.ProductId == Id) == null) return RedirectToAction("Error", new { error = "No product with such Id"});
+            Product product = data.Products.FirstOrDefault(i => i.ProductId == Id);
+            data.Products.Remove(product);
+            data.SaveChanges();
+            return RedirectToAction("ShowList", new { Id = product.CategoryId });
+        }
+
+        public string Error(string error)
+        {
+            return $"ERROR MESSAGE:{error} ";
+        }
+
         [HttpGet]
         public IActionResult ShowList(int? Id)
         {
@@ -121,26 +136,5 @@ namespace OnlineShop.Controllers
         }
 
         // GET: Product/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Product/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-    }
+     }
 }
