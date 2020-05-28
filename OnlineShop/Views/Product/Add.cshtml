@@ -10,7 +10,7 @@
     <table style="width: 800px;border:0px;">
         <tr>
             <td colspan="2" style="background-color:#85C2FF;">
-                <h1 style="color: black;">Добро пожалловать в онлайн-магазин</h1>
+                <h1 style="color: black;">Добро пожаловать!</h1>
             </td>
         </tr>
         <tr style="vertical-align: top;">
@@ -18,17 +18,31 @@
                 <h4 class="nav-item">
                     <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
                 </h4>
-                <h4>Товары:</h4>
+                <h4>Смотреть по категориям:</h4>
                 <ol>
                     @foreach (var item in Model)
                     {
                         <li>
-                            <a href="~/Product/ShowList?CategoryId = @item.CategoryId">@item.CategoryName </a>
+
+                            @Html.ActionLink(
+    linkText: item.CategoryName,
+    actionName: "ShowList",
+    controllerName: "Product",
+    routeValues: new {
+        Id = item.CategoryId
+    },
+    htmlAttributes: null
+    )
+
                         </li>
                     }
                 </ol>
-               
+                <h4 class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Add">Добавить товар</a>
+                </h4>
+
             </td>
+
             <td style="background-color:#fff;height:200px;width:400px;text-align:top;">
                 <div>
                     <h3>Новый товар </h3>
@@ -40,12 +54,13 @@
                             </tr>
                             <tr>
                                 <td>Категория :</td>
-                                <td><select name = "CategoryId">
-                                    @foreach (var item in Model)
-                                    {
-                                        <option value="@item.CategoryId"> @item.CategoryName</option>
-                                    }                                    
-                                </select>
+                                <td>
+                                    <select name="CategoryId">
+                                        @foreach (var item in Model)
+                                        {
+                                            <option value="@item.CategoryId"> @item.CategoryName</option>
+                                        }
+                                    </select>
                                 </td>
                             </tr>
                             <tr>

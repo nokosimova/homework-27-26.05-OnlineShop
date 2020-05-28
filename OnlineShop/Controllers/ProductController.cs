@@ -76,10 +76,16 @@ namespace OnlineShop.Controllers
         public IActionResult ShowList(int? Id)
         {
             ViewBag.Id = 0;
-            if (Id == null) return View(new List<Product>());
+            if (Id == null) return View(new ProductCategoryModel());
             var list = (Id == 1) ? data.Products.ToList() : data.Products.Where(i => i.CategoryId == Id).ToList();
-            return View(list);
-             
+            Product product = data.Products.FirstOrDefault(i => i.ProductId == Id);
+            ProductCategoryModel model = new ProductCategoryModel
+            {
+                product = product,
+                Categories = data.Categories,
+                Products = list
+            };
+            return View(model);
                   
         }
         // GET: Product/Details/5

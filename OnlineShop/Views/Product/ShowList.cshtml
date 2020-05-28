@@ -1,5 +1,4 @@
-﻿
-@model List<OnlineShop.Models.Product>
+﻿@model OnlineShop.Models.ProductCategoryModel
 @{
     Layout = null;
 }
@@ -15,14 +14,37 @@
     <table style="width: 800px;border:0px;">
         <tr>
             <td colspan="2" style="background-color:#85C2FF;">
-                <h1 style="color: black;">Добро пожалловать в онлайн-магазин</h1>
+                <h1 style="color: black;">Добро пожаловать!</h1>
             </td>
         </tr>
         <tr style="vertical-align: top;">
             <td style="background-color:#C2EBFF;width:150px;text-align:top;">
                 <h4 class="nav-item">
                     <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
-                </h4>          
+                </h4>
+                <h4>Смотреть по категориям:</h4>
+                <ol>
+                    @foreach (var item in Model.Categories)
+                    {
+                        <li>
+
+                            @Html.ActionLink(
+    linkText: item.CategoryName,
+    actionName: "ShowList",
+    controllerName: "Product",
+    routeValues: new {
+        Id = item.CategoryId
+    },
+    htmlAttributes: null
+    )
+
+                        </li>
+                    }
+                </ol>
+                <h4 class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Add">Добавить товар</a>
+                </h4>
+
             </td>
             <td style="background-color:#fff;height:200px;width:400px;text-align:top;">
                 <div>
@@ -45,9 +67,15 @@
                     </table>
                         <table border="1">
                             <tr><th> id </th><th> Название </th><th>Категория</th><th>Цена</th></tr>
-                            @foreach (var item in Model)
+                            @foreach (var item in Model.Products)
                             {
-                                <tr><td>@item.ProductId</td><td>@item.ProductName</td><td>@item.CategoryId</td><td>@item.Price</td></tr>
+                                var category = "";
+                                foreach(var i in Model.Categories)
+                                {
+                                    if (i.CategoryId == item.CategoryId) { category = i.CategoryName; }
+                                }
+
+                                <tr><td>@item.ProductId</td><td>@item.ProductName</td><td>@category</td><td>@item.Price</td></tr>
                             }
                             </table{>
                 </div>
