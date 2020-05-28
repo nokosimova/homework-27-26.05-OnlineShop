@@ -25,12 +25,13 @@
                     <h3>Измените данные  </h3>
                     <form method="post">
                         <table>
+                            <td><input type="hidden" name="ProductId" value="@Model.product.ProductId" /> </td>                            
                             <tr>
                                 <td>Название:</td>
-                                <td><input type="text" name="ProductName" value="@Model.product.ProductName"/> </td>
+                                <td><input type="text" name="ProductName" value="@Model.product.ProductName" /> </td>
                             </tr>
                             <tr>
-                                <td>Категория :</td>
+                                <td>Категория(выберите снова!) :</td>
                                 <td>
                                     <select name="CategoryId">
                                         @foreach (var item in Model.Categories)
@@ -42,9 +43,9 @@
                             </tr>
                             <tr>
                                 <td>Цена:</td>
-                                <td><input type="text" name="Price"value="@Model.product.Price"/></td>
+                                <td><input type="text" name="Price" value="@Model.product.Price" /></td>
                             </tr>
-                            <tr><td><input type="submit" value="Отправить" /> </td><td></td></tr>
+                            <tr><td><input type="submit" value="Изменить" /> </td><td></td></tr>
                         </table>
                     </form>
                 </div>

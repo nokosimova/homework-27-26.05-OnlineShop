@@ -31,12 +31,13 @@ namespace OnlineShop.Controllers
         {
             data.Products.Add(product);
             data.SaveChanges();
-            return Redirect("ShowList");
+            return RedirectToAction("Add");
         }
         [HttpGet]
         public IActionResult Change(int? Id)
         {
-            if (Id == null) return RedirectToAction("Index");
+            if (Id == null) RedirectToAction("Index");
+            if (data.Products.FirstOrDefault(i => i.ProductId == Id) == null) RedirectToAction("Index");
             Product product = data.Products.FirstOrDefault(i => i.ProductId == Id);
             ProductCategoryModel model = new ProductCategoryModel
             {
@@ -47,26 +48,25 @@ namespace OnlineShop.Controllers
             return View(model);
         }
         [HttpPost]
-        public string Change(Product product)
+        public IActionResult Change(Product product)
         {
+            if (data.Products.FirstOrDefault(i => i.ProductId == product.ProductId) == null) RedirectToAction("Index");
             data.Products.First(i => i.ProductId == product.ProductId).ProductName = product.ProductName;
             data.Products.First(i => i.ProductId == product.ProductId).CategoryId = product.CategoryId;
             data.Products.First(i => i.ProductId == product.ProductId).Price = product.Price;
             data.SaveChanges();
-            return "Данные изменены";
+            return RedirectToAction("ShowList", new{Id = product.CategoryId});
         }
         [HttpGet]
         public IActionResult ShowList(int? Id)
         {
+            ViewBag.Id = 0;
             if (Id == null) return View(new List<Product>());
             var list = (Id == 1) ? data.Products.ToList() : data.Products.Where(i => i.CategoryId == Id).ToList();
             return View(list);
              
                   
         }
-
-       //     return View(data.Products.Where(i => i.CategoryId = )ToList());
-        
         // GET: Product/Details/5
         [HttpPost]
         public ActionResult Details(int id)
