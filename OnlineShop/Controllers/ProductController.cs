@@ -16,9 +16,9 @@ namespace OnlineShop.Controllers
         {
             data = context;
         }
-        public ActionResult Index()
+        public IActionResult Index()
         {
-            return View();
+            return View(data.Categories.ToList());
         }
         [HttpGet]
         public IActionResult Add()
@@ -27,11 +27,11 @@ namespace OnlineShop.Controllers
             return View(data.Categories.ToList());            
         }
         [HttpPost]
-        public string Add(Product product)
+        public IActionResult Add(Product product)
         {
             data.Products.Add(product);
             data.SaveChanges();
-            return "Товар добавлен";
+            return Redirect("ShowList");
         }
         [HttpGet]
         public IActionResult ShowList(int CategoryId)

@@ -5,6 +5,11 @@
 }
 <!doctype html>
 <html>
+<style>
+        table {
+        border-spacing: 15px;
+    }
+</style>
 <body>
 
     <table style="width: 800px;border:0px;">
@@ -15,41 +20,29 @@
         </tr>
         <tr style="vertical-align: top;">
             <td style="background-color:#C2EBFF;width:150px;text-align:top;">
-                <h3>Смотреть по категориям:</h3>
-                <ol>
-                    <li>
-                        <a href="~/Product/ShowList?CategoryId = 1">Все товары </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Овощи</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Фрукты</a>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Мясные продукты</a>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Молочные продукты</a>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Мучные изделия</a>
-                </ol>
-                <h3 class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Add">Добавить товар</a>
-                </h3>
-                <h3 class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Изменить товар</a>
-                </h3>
+                <h4 class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
+                </h4>          
             </td>
             <td style="background-color:#fff;height:200px;width:400px;text-align:top;">
                 <div>
-                    <table border="1">
-                        <tr><th> id </th><th> Название </th><th>Категория</th><th>Цена</th></tr>
-                        @foreach (var item in Model)
-                        {
-                            <tr><td>@item.ProductId</td><td>@item.ProductName</td><td>@item.CategoryId</td><td>@item.Price</td></tr>
-                        }
-                        </table>
-                </div>
-            </td>
+                    <table>
+                        <tr>
+                            <th>id:</th>
+                            <th><input type="text" name="id" /></th>
+                            <th><input type="submit" value="Изменить" /></th>
+                            <th><input type="submit" value="Удалить" /></th>
+                        </tr>
+                    </table> <p> </p>                   
+                    <table border="0">
+                    <tr><th> id </th><th> Название </th><th>Категория</th><th>Цена</th></tr>
+                         @foreach (var item in Model)
+                         {
+                             <tr><td>@item.ProductId</td><td>@item.ProductName</td><td>@item.CategoryId</td><td>@item.Price</td></tr>
+                         }
+        </table{>
+        </div>
+        </td>
         </tr>
         <tr></tr>
     </table>

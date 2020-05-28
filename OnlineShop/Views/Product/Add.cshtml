@@ -15,29 +15,19 @@
         </tr>
         <tr style="vertical-align: top;">
             <td style="background-color:#C2EBFF;width:150px;text-align:top;">
-                <h3>Смотреть по категориям:</h3>
+                <h4 class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
+                </h4>
+                <h4>Товары:</h4>
                 <ol>
-                    <li>
-                        <a href="~/Product/ShowList?CategoryId = 1">Все товары </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Овощи</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Фрукты</a>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Мясные продукты</a>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Молочные продукты</a>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Мучные изделия</a>
+                    @foreach (var item in Model)
+                    {
+                        <li>
+                            <a href="~/Product/ShowList?CategoryId = @item.CategoryId">@item.CategoryName </a>
+                        </li>
+                    }
                 </ol>
-                <h3 class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Add">Добавить товар</a>
-                </h3>
-                <h3 class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Изменить товар</a>
-                </h3>
+               
             </td>
             <td style="background-color:#fff;height:200px;width:400px;text-align:top;">
                 <div>

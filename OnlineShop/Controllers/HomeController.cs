@@ -19,6 +19,7 @@ namespace OnlineShop.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.CategoryId = 0;
             return View(data.Categories.ToList());
         }      
     }
