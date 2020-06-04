@@ -12,9 +12,21 @@ namespace OnlineShop.Controllers
     public class ProductController : Controller
     {
         DataContext data { get; set; }
+        static List<Product> orderList { get; set; }
+
         public ProductController(DataContext context)
         {
             data = context;
+            orderList = new List<Product>();
+        }
+        
+        public IActionResult AddToOrder(int id)
+        {
+            Product newProduct = data.Products.FirstOrDefault(i => i.ProductId == id);
+            if (newProduct == null)
+                return RedirectToAction("Error", new { error = "No product with such Id" });
+            orderList.Add(newProduct);
+            return RedirectToAction("ShowList", new { Id = newProduct.CategoryId });
         }
         public IActionResult Index()
         {
@@ -24,6 +36,11 @@ namespace OnlineShop.Controllers
         public IActionResult Add()
         {
             return View(data.Categories.ToList());            
+        }
+
+        public IActionResult Buy()
+        {
+            return View(orderList);
         }
         [HttpPost]
         public IActionResult Add(Product product)
