@@ -62,8 +62,8 @@ namespace OnlineShop.Controllers
         [HttpPost]
         public IActionResult Buy(Order order)
         {
-            if (order.purchaseSum == null || order.purchaseSum == 0 || order.delivetyTime == "" || order.customerTelephone == "" || order.customerAdress == "")
-                return RedirectToAction("Error", new { error = "INCORRECT DATA" });
+            if (order.purchaseSum == null || order.purchaseSum == 0 || order.delivetyTime == null || order.customerTelephone == null || order.customerAdress == null)
+                return RedirectToAction("Error", new { error = "ЗАПОЛНИТЕ ВСЕ ПОЛЯ" });
                Startup.orderList.Clear();
             //   data.Orders.Add(order);
             //   data.SaveChanges();
