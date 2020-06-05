@@ -11,17 +11,21 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using OnlineShop.Db;
+using OnlineShop.Models;
 
 namespace OnlineShop
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
+        public static List<Product> orderList { get; set; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            orderList = new List<Product>();
         }
-
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
