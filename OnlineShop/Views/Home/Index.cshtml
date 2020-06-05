@@ -21,23 +21,27 @@
                 <ol>
                     @foreach (var item in Model)
                     {
-                    <li>
+                        <li>
 
-                        @Html.ActionLink(
-linkText: item.CategoryName,
-actionName: "ShowList",
-controllerName: "Product",
-routeValues: new {
-    Id = item.CategoryId
-},
-htmlAttributes: null
-)
+                            @Html.ActionLink(
+    linkText: item.CategoryName,
+    actionName: "ShowList",
+    controllerName: "Product",
+    routeValues: new {
+        Id = item.CategoryId
+    },
+    htmlAttributes: null
+    )
 
-                    </li> 
+                        </li>
                     }
                 </ol>
                 <h4 class="nav-item">
                     <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Add">Добавить товар</a>
+                </h4>
+                <p></p>
+                <h4 class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Buy">Корзина покупателя</a>
                 </h4>
             </td>
             <td style="background-color:#fff;height:200px;width:400px;text-align:top;"> </td>

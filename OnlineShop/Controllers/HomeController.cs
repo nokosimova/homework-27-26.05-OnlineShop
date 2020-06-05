@@ -12,9 +12,11 @@ namespace OnlineShop.Controllers
     public class HomeController : Controller
     {
         DataContext data;
+        public static List<Product> orderList { get; set; }
         public HomeController(DataContext context)
         {
             data = context;
+            orderList = new List<Product>();
         }
 
         public IActionResult Index()

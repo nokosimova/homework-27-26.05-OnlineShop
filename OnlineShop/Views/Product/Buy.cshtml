@@ -1,0 +1,40 @@
+﻿@model List<OnlineShop.Models.Product>
+@{
+    Layout = null;
+}
+<!doctype html>
+<html>
+<body>
+
+    <table style="width: 800px;border:0px;">
+        <tr>
+            <td colspan="2" style="background-color:#85C2FF;">
+                <h1 style="color: black;">Добро пожаловать!</h1>
+            </td>
+        </tr>
+        <tr style="vertical-align: top;">
+            <td style="background-color:#C2EBFF;width:150px;text-align:top;">
+                <h4 class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
+                </h4>
+            </td>
+
+            <td style="background-color:#fff;height:200px;width:400px;text-align:top;">
+                <table border="0">
+                    <tr><th> id </th><th> Название </th><th>Цена</th><th>Действия</th></tr>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.ProductId</td>
+                            <td>@item.ProductName</td>
+                            <td>@item.Price</td>
+                            <td><a href="~/Product/DeleteFromOrder/@item.ProductId">Отменить</a></td>
+                        </tr>
+                    }
+                    </table{>
+            </td>
+        </tr>
+        <tr></tr>
+    </table>
+</body>
+</html> 

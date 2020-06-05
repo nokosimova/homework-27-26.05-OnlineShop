@@ -44,7 +44,10 @@
                 <h4 class="nav-item">
                     <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Add">Добавить товар</a>
                 </h4>
-
+                <p></p>
+                <h4 class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Buy">Корзина покупателя</a>
+                </h4>
             </td>
             <td style="background-color:#fff;height:200px;width:400px;text-align:top;">
                 <div>
@@ -75,7 +78,12 @@
                                     if (i.CategoryId == item.CategoryId) { category = i.CategoryName; }
                                 }
 
-                                <tr><td>@item.ProductId</td><td>@item.ProductName</td><td>@category</td><td>@item.Price</td></tr>
+                                <tr><td>@item.ProductId</td>
+                                    <td>@item.ProductName</td>
+                                    <td>@category</td>
+                                    <td>@item.Price</td>
+                                    <td><a href="~/Product/AddToOrder/@item.ProductId">В корзину</a></td>
+                            </tr>
                             }
                             </table{>
                 </div>

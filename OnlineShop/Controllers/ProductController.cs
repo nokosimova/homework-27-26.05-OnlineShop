@@ -12,10 +12,31 @@ namespace OnlineShop.Controllers
     public class ProductController : Controller
     {
         DataContext data { get; set; }
+        static List<Product> orderList { get; set; }
+
         public ProductController(DataContext context)
         {
             data = context;
         }
+        
+        public IActionResult AddToOrder(int? id)
+        {
+            Product newProduct = data.Products.FirstOrDefault(i => i.ProductId == id);
+            if (newProduct == null)
+                return RedirectToAction("Error", new { error = "No product with such Id" });
+            Startup.orderList.Add(newProduct);
+            return RedirectToAction("ShowList", new { Id = newProduct.CategoryId });
+        }
+
+        public IActionResult DeleteFromOrder(int? Id)
+        {            
+            if (Id == null || Startup.orderList.FirstOrDefault(i => i.ProductId == Id) == null)
+                return RedirectToAction("Error", new { error = "No such product in order" });
+            Product newProduct = Startup.orderList.FirstOrDefault(i => i.ProductId == Id);
+            Startup.orderList.Remove(newProduct);
+            return RedirectToAction("Buy");
+        }
+
         public IActionResult Index()
         {
             return View(data.Categories.ToList());
@@ -24,6 +45,11 @@ namespace OnlineShop.Controllers
         public IActionResult Add()
         {
             return View(data.Categories.ToList());            
+        }
+
+        public IActionResult Buy()
+        {
+            return View(Startup.orderList);
         }
         [HttpPost]
         public IActionResult Add(Product product)
@@ -76,6 +102,7 @@ namespace OnlineShop.Controllers
         [HttpGet]
         public IActionResult ShowList(int? Id)
         {
+            ViewBag.Order = orderList;
             ViewBag.Id = 0;
             if (Id == null) return View(new ProductCategoryModel());
             var list = (Id == 1) ? data.Products.ToList() : data.Products.Where(i => i.CategoryId == Id).ToList();
