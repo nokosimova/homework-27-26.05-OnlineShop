@@ -52,11 +52,22 @@ namespace OnlineShop.Controllers
             return View(Startup.orderList);
         }
         [HttpPost]
+
         public IActionResult Add(Product product)
         {
             data.Products.Add(product);
             data.SaveChanges();
             return RedirectToAction("Add");
+        }
+        [HttpPost]
+        public IActionResult Buy(Order order)
+        {
+            if (order.purchaseSum == null || order.purchaseSum == 0 || order.delivetyTime == "" || order.customerTelephone == "" || order.customerAdress == "")
+                return RedirectToAction("Error", new { error = "INCORRECT DATA" });
+               Startup.orderList.Clear();
+            //   data.Orders.Add(order);
+            //   data.SaveChanges();
+            return View("Thanks");
         }
         [HttpGet]
         public IActionResult Change(int? Id)
